@@ -65,4 +65,94 @@ RSpec.describe "POST /api/v1/subscriptions", type: :request do
       expect(json_response[:data][:attributes][:frequency]).to be_a(String)
     end
   end
+
+  describe "sad path" do 
+    it "returns an error if customer_id is missing" do 
+      customer = create(:customer)
+      tea = create(:tea)
+      
+      subscription_params = {
+        tea_id: "#{tea.id}",
+        title: "Monthly Cleanse",
+        price: 45.00,
+        status: "Active",
+        frequency: "Monthly"
+      }
+
+      headers = { "CONTENT_TYPE" => "application/json" }
+
+      post "/api/v1/subscriptions", headers: headers, params: JSON.generate(subscription_params)
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(400) 
+      expect(Subscription.count).to eq(0)
+      expect(customer.subscriptions.count).to eq(0)
+
+      expect(json[:error]).to be_a(Array)
+      expect(json[:error][0]).to be_a(Hash)
+      expect(json[:error][0]).to have_key(:title)
+      expect(json[:error][0][:title]).to be_a(String)
+      expect(json[:error][0][:title]).to eq("Validation failed: Customer must exist")
+
+      expect(json[:error][0]).to have_key(:status)
+      expect(json[:error][0][:status]).to be_an(Integer)
+      expect(json[:error][0][:status]).to eq(400)
+    end
+
+    it "returns an error if tea_id is missing" do 
+      customer = create(:customer)
+      tea = create(:tea)
+      
+      subscription_params = {
+        customer_id: "#{customer.id}",
+        title: "Monthly Cleanse",
+        price: 45.00,
+        status: "Active",
+        frequency: "Monthly"
+      }
+
+      headers = { "CONTENT_TYPE" => "application/json" }
+
+      post "/api/v1/subscriptions", headers: headers, params: JSON.generate(subscription_params)
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(400) 
+      expect(Subscription.count).to eq(0)
+      expect(customer.subscriptions.count).to eq(0)
+
+      expect(json[:error]).to be_a(Array)
+      expect(json[:error][0]).to be_a(Hash)
+      expect(json[:error][0]).to have_key(:title)
+      expect(json[:error][0][:title]).to be_a(String)
+      expect(json[:error][0][:title]).to eq("Validation failed: Tea must exist")
+
+      expect(json[:error][0]).to have_key(:status)
+      expect(json[:error][0][:status]).to be_an(Integer)
+      expect(json[:error][0][:status]).to eq(400)
+    end
+
+    it "returns an error if frequency is missing" do 
+      customer = create(:customer)
+      tea = create(:tea)
+
+      subscription_params = {
+        tea_id: "#{tea.id}",
+        customer_id: "#{customer.id}",
+        title: "Monthly Cleanse",
+        price: 45.00,
+        status: "Active"
+      }
+
+      headers = { "CONTENT_TYPE" => "application/json" }
+
+      post "/api/v1/subscriptions", headers: headers, params: JSON.generate(subscription_params)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(400)
+    end
+  end
 end
