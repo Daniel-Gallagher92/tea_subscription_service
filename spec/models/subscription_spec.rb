@@ -12,4 +12,18 @@ RSpec.describe Subscription, type: :model do
     it { should validate_presence_of :frequency }
     it { should validate_presence_of :price }
   end
+
+  describe "instance methods" do 
+    it "#cancel_subscription" do 
+      customer = create(:customer)
+      tea = create(:tea)
+      subscription = create(:subscription, status: "Active", customer_id: customer.id, tea_id: tea.id) 
+
+      expect(subscription.status).to eq("Active")
+
+      subscription.cancel_subscription
+
+      expect(subscription.status).to eq("Cancelled")
+    end
+  end
 end
