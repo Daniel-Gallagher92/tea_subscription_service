@@ -1,24 +1,194 @@
-# README
+![image](https://github.com/Daniel-Gallagher92/tea_subscription_service/assets/64923238/c767d806-470f-42be-aec2-f1553dd2a7f2)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Tea Subscription Service API
+This application serves as a back end API that exposed endpoints for a front end team to allow an end user to create a new subscription, cancel and active subscription as well as view all of their subscriptions including both active and inactive subscriptions. 
 
-Things you may want to cover:
+## RESTful Endpoints
 
-* Ruby version
+<details close>
 
-* System dependencies
 
-* Configuration
+### Get a Customer's Subscriptions
 
-* Database creation
+```http
+GET /api/v1/customers/:customer_id/subscriptions
+```
 
-* Database initialization
+<details close>
+<summary>  Details </summary>
+<br>
+    
+Parameters: <br>
+```
+No Parameters
+```
 
-* How to run the test suite
+| Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
 
-* Services (job queues, cache servers, search engines, etc.)
+Example Value:
 
-* Deployment instructions
+```json
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "subscription",
+            "attributes": {
+                "title": "Green Tea Subscription",
+                "price": 15.00,
+                "status": "cancelled",
+                "frequency": "biweekly",
+                "customer_id": 1,
+                "tea_id": 1
+            }
+        },
+        {
+            "id": "2",
+            "type": "subscription",
+            "attributes": {
+                "title": "Black Tea Subscription",
+                "price": 20.00,
+                "status": "active",
+                "frequency": "weekly",
+                "customer_id": 1,
+                "tea_id": 2
+            }
+        },
+        {
+            "id": "3",
+            "type": "subscription",
+            "attributes": {
+                "title": "White Tea Subscription",
+                "price": 30.00,
+                "status": "cancelled",
+                "frequency": "monthly",
+                "customer_id": 1,
+                "tea_id": 3
+            }
+        }
+    ]
+}
+```
 
-* ...
+</details>
+
+---
+
+### Create a Subscription
+
+```http
+POST /api/v1/subscriptions
+```
+
+<details close>
+<summary>  Details </summary>
+<br>
+    
+Parameters: <br>
+```
+CONTENT_TYPE=application/json
+```
+
+| Code | Description |
+| :--- | :--- |
+| 201 | CREATED |
+
+Example Value:
+
+```json
+{
+    "data": {
+        "id": "1",
+        "type": "subscription",
+        "attributes": {
+            "title": "White Tea Subscription",
+            "price": 30.00,
+            "status": "active",
+            "frequency": "Monthly",
+            "customer_id": 1,
+            "tea_id": 3
+        }
+    }
+}
+```
+</details>
+
+---
+
+### Update a Subscription
+
+```http
+POST /api/v1/subscriptions/:id
+```
+
+<details close>
+<summary>  Details </summary>
+<br>
+    
+Parameters: <br>
+```
+CONTENT_TYPE=application/json
+```
+
+Example Payload: <br>
+```
+{
+  "subscription": {
+    "status": "cancelled"
+  }
+}
+```
+| Code | Description |
+| :--- | :--- |
+| 200 | OK |
+
+Example Value:
+
+```json
+{
+    "data": {
+        "id": "1",
+        "type": "subscription",
+        "attributes": {
+            "title": "White Tea Subscription",
+            "price": 30.00,
+            "status": "cancelled",
+            "frequency": "Monthly",
+            "customer_id": 1,
+            "tea_id": 3
+        }
+    }
+}
+```
+</details>
+</details>
+
+## Status Codes
+
+Tea Subscriptions returns the following status codes in its API:
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
+
+## Prerequisites
+Running this project requires:
+- Rails 7.0.8
+- Ruby 3.2.2
+- Gems: jsonapi-serializer | factory_bot_rails | faker | shoulda-matchers
+
+## Installation
+
+1. Fork and clone this repository
+2. `cd` into the root directiory
+3. `bundle install`
+4. `rails db:{drop,create,migrate,seed}`
+5. Run the test suite with `bundle exec rspec`
+6. Start the local server by running `rails s`
+7. Explore each endpoint using a base url of `localhost:3000` in Postman.
