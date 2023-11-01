@@ -83,7 +83,7 @@ Example Value:
 ### Create a Subscription
 
 ```http
-POST /api/v1/subscriptions
+POST /api/v1/customers/:customer_id/teas/:tea_id/subscriptions"
 ```
 
 <details close>
@@ -124,7 +124,7 @@ Example Value:
 ### Update a Subscription
 
 ```http
-POST /api/v1/subscriptions/:id
+PATCH /api/v1/customers/:customer_id/teas/:tea_id/subscriptions/:subscription_id
 ```
 
 <details close>
@@ -168,6 +168,9 @@ Example Value:
 ```
 </details>
 </details>
+## Database Schema  
+<img width="1006" alt="Screenshot 2023-11-01 at 4 40 06 PM" src="https://github.com/Daniel-Gallagher92/tea_subscription_service/assets/64923238/fecb544f-a09d-4303-b0b8-6aff70257af0">
+
 
 ## Status Codes
 
