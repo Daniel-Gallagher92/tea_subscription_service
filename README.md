@@ -1,5 +1,9 @@
 ![image](https://github.com/Daniel-Gallagher92/tea_subscription_service/assets/64923238/c767d806-470f-42be-aec2-f1553dd2a7f2)
 
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
+![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+![Postgresql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
 # Tea Subscription Service API
 This application serves as a back end API that exposed endpoints for a front end team to allow an end user to create a new subscription, cancel and active subscription as well as view all of their subscriptions including both active and inactive subscriptions. 
 
@@ -189,6 +193,6 @@ Running this project requires:
 2. `cd` into the root directiory
 3. `bundle install`
 4. `rails db:{drop,create,migrate,seed}`
-5. Run the test suite with `bundle exec rspec`
+5. Run the test suite with `bundle exec rspec`. There should be 27 passing tests.
 6. Start the local server by running `rails s`
-7. Explore each endpoint using a base url of `localhost:3000` in Postman.
+7. Explore each endpoint using a base url of `localhost:3000` in Postman or curl.
