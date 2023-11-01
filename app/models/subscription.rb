@@ -7,5 +7,4 @@ class Subscription < ApplicationRecord
   def cancel_subscription
     update(status: "Cancelled")
   end
-
 end
