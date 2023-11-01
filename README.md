@@ -169,8 +169,7 @@ Example Value:
 </details>
 </details>
 ## Database Schema  
-<img width="1006" alt="Screenshot 2023-11-01 at 4 40 06 PM" src="https://github.com/Daniel-Gallagher92/tea_subscription_service/assets/64923238/fecb544f-a09d-4303-b0b8-6aff70257af0">
-
+![image](https://github.com/Daniel-Gallagher92/tea_subscription_service/assets/64923238/1d7bf8d5-c5f8-4855-817e-90b8d4c04dbb)
 
 ## Status Codes
 
